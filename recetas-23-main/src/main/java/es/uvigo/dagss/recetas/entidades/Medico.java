@@ -39,7 +39,7 @@ public class Medico extends Usuario {
 
     // Constructor por defecto
     public Medico() {
-
+        super(TipoUsuario.MEDICO);
     }
 
     public Medico(String name, String surname, String dni, String registrationNumber, int phoneNumber, String email, CentroSalud center, boolean active) {
