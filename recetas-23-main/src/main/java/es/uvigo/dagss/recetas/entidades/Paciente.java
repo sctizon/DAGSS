@@ -47,7 +47,7 @@ public class Paciente extends Usuario {
 
     // Constructor por defecto
     public Paciente() {
-
+        super(TipoUsuario.PACIENTE);
     }
 
     public Paciente(String name, String surname, String dni, String healthCardId, String ssn, String address, int phoneNumber, Date birthdayDate, CentroSalud center, Medico registeredDoctor, boolean active) {
