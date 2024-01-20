@@ -1,5 +1,9 @@
 package es.uvigo.dagss.recetas.entidades;
 
+import java.net.URI;
+
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +17,7 @@ public class Medicina {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "medicine_id")
-    private int medicineId;
+    private long medicineId;
 
     @Column(name = "name")
     private String name;

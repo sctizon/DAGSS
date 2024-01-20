@@ -15,7 +15,7 @@ public class Receta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "recipe_id")
-    private int recipeId;
+    private long recipeId;
 
     @ManyToOne
     @JoinColumn(name = "prescription_id", nullable = false)
