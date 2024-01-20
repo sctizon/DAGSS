@@ -83,4 +83,5 @@ public class AdministradorController {
 		return ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(administrador.getId())
 				.toUri();
 	}
+    
 }
