@@ -1,7 +1,7 @@
 package es.uvigo.dagss.recetas.services;
 
+import es.uvigo.dagss.recetas.daos.MedicoDao;
 import es.uvigo.dagss.recetas.entidades.Medico;
-import es.uvigo.dagss.recetas.repositories.MedicoRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,10 +13,10 @@ import org.springframework.stereotype.Service;
 public class MedicoService {
     
     @Autowired
-    private MedicoRepository medicoRepository;
+    private MedicoDao medicoDao;
 
     public List<Medico> getAll() {
-        return medicoRepository.findAll().stream()
+        return medicoDao.findAll().stream()
                 .filter(usuario -> usuario instanceof Medico) // Filtra solo Administradores
                 .filter(usuario -> ((Medico) usuario).getActivo()) // Filtra solo usuarios activos
                 .map(usuario -> (Medico) usuario) // Convierte de Usuario a Administrador
@@ -24,7 +24,7 @@ public class MedicoService {
     }
 
     public Optional<Medico> findById(Long id) {
-        Optional<Medico> medico = medicoRepository.findById(id);
+        Optional<Medico> medico = medicoDao.findById(id);
 
         if(medico.isPresent() && !medico.get().getActivo()){
             return Optional.empty();
@@ -33,17 +33,17 @@ public class MedicoService {
     }
 
     public Medico create(Medico medico) {
-        return medicoRepository.save(medico);
+        return medicoDao.save(medico);
     }
 
     public Medico update(Medico medico) {
-        return medicoRepository.save(medico);
+        return medicoDao.save(medico);
 
     }
 
     public void delete(Medico medico) {
         medico.desactivar();
-        medicoRepository.save(medico);
+        medicoDao.save(medico);
     }
 
 }

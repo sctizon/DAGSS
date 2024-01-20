@@ -39,7 +39,7 @@ public class AdministradorController {
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<Administrador> getById(@PathVariable("id") Long id) {
-        Optional<Administrador> admin = administradorService.findById(id);
+        Optional<Administrador> admin = administradorService.getById(id);
         if (admin.isEmpty()) {
             throw new ResourceNotFoundException("Administrador " + id + " not found");
         }
@@ -57,7 +57,7 @@ public class AdministradorController {
 
     @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Administrador> update(@PathVariable("id") Long id, @RequestBody Administrador administrador) {
-        Optional<Administrador> optionalAdministrador = administradorService.findById(id);
+        Optional<Administrador> optionalAdministrador = administradorService.getById(id);
         administrador.setId(id);
 		if (optionalAdministrador.isEmpty()) {
             throw new ResourceNotFoundException("No existe el administrador con id " + id);
@@ -70,7 +70,7 @@ public class AdministradorController {
 
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<HttpStatus> delete(@PathVariable("id") Long id) {
-        Optional<Administrador> admin = administradorService.findById(id);
+        Optional<Administrador> admin = administradorService.getById(id);
         if (admin.isEmpty()) {
             throw new ResourceNotFoundException("No existe el administrador con id " + id);
         }
@@ -83,5 +83,5 @@ public class AdministradorController {
 		return ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(administrador.getId())
 				.toUri();
 	}
-    
+
 }

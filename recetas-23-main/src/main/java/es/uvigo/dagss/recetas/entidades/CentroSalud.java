@@ -15,7 +15,7 @@ public class CentroSalud {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "center_id")
-    private int centerId;
+    private long centerId;
 
     @Column(name = "name")
     private String name;
@@ -33,6 +33,7 @@ public class CentroSalud {
     private boolean active;
 
     public CentroSalud() {
+
     }
 
     public CentroSalud(int centerId, String name, String address, int phoneNumber, String email, boolean active) {
@@ -43,6 +44,5 @@ public class CentroSalud {
         this.email = email;
         this.active = active;
     }
-
 
 }

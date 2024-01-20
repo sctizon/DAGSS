@@ -6,17 +6,17 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.uvigo.dagss.recetas.daos.FarmaciaDao;
 import es.uvigo.dagss.recetas.entidades.Farmacia;
-import es.uvigo.dagss.recetas.repositories.FarmaciaRepository;
 
 @Service
 public class FarmaciaService {
     
 @Autowired
-    private FarmaciaRepository farmaciaRepository;
+    private FarmaciaDao farmaciaDao;
 
     public List<Farmacia> getAll() {
-        return farmaciaRepository.findAll().stream()
+        return farmaciaDao.findAll().stream()
                 .filter(usuario -> usuario instanceof Farmacia) // Filtra solo Administradores
                 .filter(usuario -> ((Farmacia) usuario).getActivo()) // Filtra solo usuarios activos
                 .map(usuario -> (Farmacia) usuario) // Convierte de Usuario a Administrador
@@ -24,7 +24,7 @@ public class FarmaciaService {
     }
 
     public Optional<Farmacia> findById(Long id) {
-        Optional<Farmacia> farmacia = farmaciaRepository.findById(id);
+        Optional<Farmacia> farmacia = farmaciaDao.findById(id);
 
         if(farmacia.isPresent() && !farmacia.get().getActivo()){
             return Optional.empty();
@@ -33,17 +33,17 @@ public class FarmaciaService {
     }
 
     public Farmacia create(Farmacia farmacia) {
-        return farmaciaRepository.save(farmacia);
+        return farmaciaDao.save(farmacia);
     }
 
     public Farmacia update(Farmacia farmacia) {
-        return farmaciaRepository.save(farmacia);
+        return farmaciaDao.save(farmacia);
 
     }
 
     public void delete(Farmacia farmacia) {
         farmacia.desactivar();
-        farmaciaRepository.save(farmacia);
+        farmaciaDao.save(farmacia);
     }
 
 }
