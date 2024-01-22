@@ -3,6 +3,7 @@ package es.uvigo.dagss.recetas.services;
 import es.uvigo.dagss.recetas.daos.CentroSaludDao;
 import es.uvigo.dagss.recetas.entidades.CentroSalud;
 
+import es.uvigo.dagss.recetas.entidades.Direccion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

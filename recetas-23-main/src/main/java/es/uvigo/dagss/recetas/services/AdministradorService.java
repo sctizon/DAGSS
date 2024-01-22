@@ -38,7 +38,6 @@ public class AdministradorService {
 
     public Administrador update(Administrador administrador) {
         return administradorDao.save(administrador);
-
     }
 
     public void delete(Administrador administrador) {
