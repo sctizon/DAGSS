@@ -1,13 +1,22 @@
 package es.uvigo.dagss.recetas.entidades;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Date;
 
 @Entity
+@Getter
+@Setter
 @DiscriminatorValue(value = "PACIENTE")
 public class Paciente extends Usuario {
 
     // Atributos propios
+    @TableGenerator(name = "PACIENTE_GEN", table = "PACIENTE_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "PACIENTE_GEN")
+    @Id
+    private Long id;
     @Column(name = "name")
     private String name;
 
@@ -17,7 +26,7 @@ public class Paciente extends Usuario {
     @Column(name = "DNI")
     private String dni;
 
-    @Id
+
     @Column(name = "healthCard_id")
     private String healthCardId;
 
@@ -25,7 +34,8 @@ public class Paciente extends Usuario {
     private String ssn;
 
     @Column(name = "address")
-    private String address;
+    @Embedded
+    private Direccion address;
 
     @Column(name = "phone_number")
     private int phoneNumber;
@@ -42,15 +52,13 @@ public class Paciente extends Usuario {
     @JoinColumn(name = "registration_number", nullable = false)
     private Medico registeredDoctor;
 
-    @Column(name = "active")
-    private boolean active;
 
     // Constructor por defecto
     public Paciente() {
         super(TipoUsuario.PACIENTE);
     }
 
-    public Paciente(String name, String surname, String dni, String healthCardId, String ssn, String address, int phoneNumber, Date birthdayDate, CentroSalud center, Medico registeredDoctor, boolean active) {
+    public Paciente(String name, String surname, String dni, String healthCardId, String ssn, Direccion address, int phoneNumber, Date birthdayDate, CentroSalud center, Medico registeredDoctor) {
         super(TipoUsuario.PACIENTE);
         this.name = name;
         this.surname = surname;
@@ -62,6 +70,5 @@ public class Paciente extends Usuario {
         this.birthdayDate = birthdayDate;
         this.center = center;
         this.registeredDoctor = registeredDoctor;
-        this.active = active;
     }
 }

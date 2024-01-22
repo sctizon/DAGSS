@@ -10,7 +10,11 @@ import lombok.Setter;
 @DiscriminatorValue(value = "FARMACIA")
 public class Farmacia extends Usuario {
 
+    @TableGenerator(name = "FARMACIA_GEN", table = "FARMACIA_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "FARMACIA_GEN")
     @Id
+    private Long id;
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pharmacy_id")
     private int pharmacyId;
@@ -31,7 +35,8 @@ public class Farmacia extends Usuario {
     private String registrationPhNumber;
 
     @Column(name = "address")
-    private String address;
+    @Embedded
+    private Direccion address;
 
     @Column(name = "phone_number")
     private int phoneNumber;
@@ -39,8 +44,6 @@ public class Farmacia extends Usuario {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "active")
-    private boolean active;
 
     //Constructor de Farmacia
 
@@ -48,7 +51,7 @@ public class Farmacia extends Usuario {
 
     }
 
-    public Farmacia(int pharmacyId, String pharmacyName, String pharmaceuticName, String pharmaceuticSurname, String pharmaceuticDni, String registrationPhNumber, String address, int phoneNumber, String email, boolean active) {
+    public Farmacia(int pharmacyId, String pharmacyName, String pharmaceuticName, String pharmaceuticSurname, String pharmaceuticDni, String registrationPhNumber, Direccion address, int phoneNumber, String email) {
         super(TipoUsuario.FARMACIA);
         this.pharmacyId = pharmacyId;
         this.pharmacyName = pharmacyName;
@@ -59,6 +62,5 @@ public class Farmacia extends Usuario {
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.email = email;
-        this.active = active;
     }
 }

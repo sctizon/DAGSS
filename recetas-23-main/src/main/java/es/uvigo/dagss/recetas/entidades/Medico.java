@@ -11,6 +11,10 @@ import lombok.Setter;
 public class Medico extends Usuario {
 
     // Atributos propios
+    @TableGenerator(name = "MEDICO_GEN", table = "MEDICO_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "MEDICO_GEN")
+    @Id
+    private Long id;
     @Column(name = "name")
     private String name;
 
@@ -20,7 +24,6 @@ public class Medico extends Usuario {
     @Column(name = "DNI")
     private String dni;
 
-    @Id
     @Column(name = "registration_number")
     private String registrationNumber;
 
@@ -34,15 +37,13 @@ public class Medico extends Usuario {
     @JoinColumn(name = "center_id", nullable = false)
     private CentroSalud center;
 
-    @Column(name = "active")
-    private boolean active;
 
     // Constructor por defecto
     public Medico() {
         super(TipoUsuario.MEDICO);
     }
 
-    public Medico(String name, String surname, String dni, String registrationNumber, int phoneNumber, String email, CentroSalud center, boolean active) {
+    public Medico(String name, String surname, String dni, String registrationNumber, int phoneNumber, String email, CentroSalud center) {
         super(TipoUsuario.MEDICO);
         this.name = name;
         this.surname = surname;
@@ -51,6 +52,5 @@ public class Medico extends Usuario {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.center = center;
-        this.active = active;
     }
 }

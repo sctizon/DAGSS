@@ -21,7 +21,8 @@ public class CentroSalud {
     private String name;
 
     @Column(name = "address")
-    private String address;
+    @Embedded
+    private Direccion address;
 
     @Column(name = "phone_number")
     private int phoneNumber;
@@ -36,7 +37,7 @@ public class CentroSalud {
 
     }
 
-    public CentroSalud(int centerId, String name, String address, int phoneNumber, String email, boolean active) {
+    public CentroSalud(int centerId, String name, Direccion address, int phoneNumber, String email, boolean active) {
         this.centerId = centerId;
         this.name = name;
         this.address = address;
